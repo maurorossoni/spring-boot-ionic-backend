@@ -16,6 +16,7 @@ import com.nelioalves.cursomc.domain.Categoria;
 import com.nelioalves.cursomc.repositories.CategoriaRepository;
 import com.nelioalves.cursomc.services.exceptions.DataIntegrityExcepetion;
 import com.nelioalves.cursomc.services.exceptions.ObjectNotFoundException;
+import com.nelioalves.cursomc_dto.CategoriaDTO;
 
 
 
@@ -62,4 +63,8 @@ public class CategoriaService {
 			PageRequest pageResquest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 			return repo.findAll(pageResquest);
 		}		
+		
+		public Categoria fromDTO(CategoriaDTO objDto) {
+			return new Categoria(objDto.getId(), objDto.getNome());
+		}
 }
