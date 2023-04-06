@@ -1,7 +1,5 @@
 package com.nelioalves.cursomc.services;
 
-
-
 import java.util.List;
 import java.util.Optional;
 
@@ -18,53 +16,50 @@ import com.nelioalves.cursomc.services.exceptions.DataIntegrityExcepetion;
 import com.nelioalves.cursomc.services.exceptions.ObjectNotFoundException;
 import com.nelioalves.cursomc_dto.CategoriaDTO;
 
-
-
-
 @Service
 public class CategoriaService {
 
-   @Autowired
+	@Autowired
 	private CategoriaRepository repo;
-	
 
-		 public Optional<Categoria> find(Integer id) {
-			 Optional<Categoria> obj = repo.findById(id);
-			 if (obj == null) {
-				 throw new ObjectNotFoundException("Objeto não encontrado! ID: " + id
-						 + ", Tipo: " + Categoria.class.getName());
-			 }
-              return obj;
-			}
-	
-		 public Categoria insert(Categoria obj) {
-			 obj.setId(null);
-			 return repo.save(obj);
-		 }
-		 public Categoria update(Categoria obj) {
-			 find(obj.getId());
-			 return repo.save(obj);
-	 }
-		 public void delete(Integer id) {
-			 find(id);
-			 try {
-			 repo.deleteById(id);
-					 }
-			 catch (DataIntegrityViolationException e) {
-				 throw new DataIntegrityExcepetion("Não é possivel excluir uma categoria que possui produtos vinculados");
-			 }
-		 }
+	public Optional<Categoria> find(Integer id) {
+		Optional<Categoria> obj = repo.findById(id);
+		if (obj == null) {
+			throw new ObjectNotFoundException(
+					"Objeto não encontrado! ID: " + id + ", Tipo: " + Categoria.class.getName());
+		}
+		return obj;
+	}
 
-		public List<Categoria> findAll() {
-		    return repo.findAll();
+	public Categoria insert(Categoria obj) {
+		obj.setId(null);
+		return repo.save(obj);
+	}
+
+	public Categoria update(Categoria obj) {
+		find(obj.getId());
+		return repo.save(obj);
+	}
+
+	public void delete(Integer id) {
+		find(id);
+		try {
+			repo.deleteById(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityExcepetion("Não é possivel excluir uma categoria que possui produtos vinculados");
 		}
-		
-		public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
-			PageRequest pageResquest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-			return repo.findAll(pageResquest);
-		}		
-		
-		public Categoria fromDTO(CategoriaDTO objDto) {
-			return new Categoria(objDto.getId(), objDto.getNome());
-		}
+	}
+
+	public List<Categoria> findAll() {
+		return repo.findAll();
+	}
+
+	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		PageRequest pageResquest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return repo.findAll(pageResquest);
+	}
+
+	public Categoria fromDTO(CategoriaDTO objDto) {
+		return new Categoria(objDto.getId(), objDto.getNome());
+	}
 }
