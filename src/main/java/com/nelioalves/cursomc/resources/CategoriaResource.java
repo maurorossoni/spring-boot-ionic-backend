@@ -39,7 +39,7 @@ public class CategoriaResource {
     	    		}
     
 	@RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> Insert(@Valid @RequestBody CategoriaDTO objDto) {
+    public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDto) {
 		Categoria obj = service.fromDTO(objDto);
     	obj = service.insert(obj);
     	URI uri = ServletUriComponentsBuilder.fromCurrentRequest()

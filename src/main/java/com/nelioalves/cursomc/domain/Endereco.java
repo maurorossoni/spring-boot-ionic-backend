@@ -2,6 +2,7 @@ package com.nelioalves.cursomc.domain;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -33,11 +34,12 @@ public class Endereco implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="cidade_id")
     private Cidade cidade;
+	
+	public Endereco() {
+	    // default constructor
+	}
     
-    public Endereco() {
-    	    }
-
-	public Endereco(Integer id, String logradouro, String numero, String complemento, String bairro, String cep,
+  	public Endereco(Integer id, String logradouro, String numero, String complemento, String bairro, String cep,
 			Cliente cliente, Cidade cidade) {
 		super();
 		this.id = id;
