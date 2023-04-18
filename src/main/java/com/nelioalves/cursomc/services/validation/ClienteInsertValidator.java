@@ -16,32 +16,24 @@ import com.nelioalves.cursomc.services.validation.utils.BR;
 import com.nelioalves.cursomc_dto.ClienteNewDTO;
 
 public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert, ClienteNewDTO> {
-	
-	@Autowired
-	private ClienteRepository repo;
-	
+
 	@Override
 	public void initialize(ClienteInsert ann) {
 	}
 
 	@Override
 	public boolean isValid(ClienteNewDTO objDto, ConstraintValidatorContext context) {
-		
+
 		List<FieldMessage> list = new ArrayList<>();
 
-       if (objDto.getTipo().equals(TipoCliente.PESSOAFISICA.gedCod()) && !BR.IsValidCPF(objDto.getCpfouCnpj())){
-    	   list.add(new FieldMessage("cpfOuCnpj", "CPF Ínválido"));
-       }
-		
-       if (objDto.getTipo().equals(TipoCliente.PESSOAJURIDICA.gedCod()) && !BR.IsValidCNPJ(objDto.getCpfouCnpj())){
-    	   list.add(new FieldMessage("cpfOuCnpj", "CNPJ Ínválido"));
-       }
-       
-       Cliente aux = repo.findByEmail(objDto.getEmail());
-       if(aux != null) {
-    	   list.add(new FieldMessage("email", "Email Já existente"));
-       }
-		
+		if (objDto.getTipo().equals(TipoCliente.PESSOAFISICA.getCod()) && !BR.IsValidCPF(objDto.getCpfouCnpj())) {
+			list.add(new FieldMessage("cpfOuCnpj", "CPF inválido"));
+		}
+
+		if (objDto.getTipo().equals(TipoCliente.PESSOAJURIDICA.getCod()) && !BR.IsValidCNPJ(objDto.getCpfouCnpj())) {
+			list.add(new FieldMessage("cpfOuCnpj", "CNPJ inválido"));
+		}
+
 		for (FieldMessage e : list) {
 			context.disableDefaultConstraintViolation();
 			context.buildConstraintViolationWithTemplate(e.getMessage()).addPropertyNode(e.getFieldName())

@@ -96,7 +96,7 @@ public class Cliente implements Serializable {
 	}
 
 	public void setTipo(TipoCliente tipo) {
-		this.tipo = tipo.gedCod();
+		this.tipo = tipo.getCod();
 	}
 
 	public List<Endereco> getEnderecos() {
