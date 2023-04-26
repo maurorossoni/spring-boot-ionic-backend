@@ -8,6 +8,8 @@ import com.nelioalves.cursomc.domain.enums.EstadoPagamento;
 
 import jakarta.persistence.Entity;
 
+
+
 @Entity
 @JsonTypeName("pagamentoComBoleto")
 public class PagamentoComBoleto extends Pagamento{
