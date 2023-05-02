@@ -18,7 +18,7 @@
 <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		 <maven.compiler.target>1.8</maven.compiler.target>
+		 <maven.compiler.target>11</maven.compiler.target>
 		<java.version>11</java.version>
 	</properties>
 
@@ -145,10 +145,13 @@
             </plugin>
 
          <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.1.0</version>
-            </plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-compiler-plugin</artifactId>
+      <version>3.10.1</version>
+      <configuration>
+        <release>11</release>
+      </configuration>
+    </plugin>
         </plugins>
     </build>
 
